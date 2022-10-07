@@ -3,20 +3,20 @@ package com.android.dayplanner.app.tests
 import com.android.dayplanner.app.screens.MainScreen
 import com.android.dayplanner.app.screens.NewTaskScreen
 import com.android.dayplanner.app.screens.TasksHistoryScreen
-import com.android.dayplanner.app.tests.DataForTests.Companion.DATE
-import com.android.dayplanner.app.tests.DataForTests.Companion.START_DATE
-import com.android.dayplanner.app.tests.DataForTests.Companion.TASK_DESCRIPTION
-import com.android.dayplanner.app.tests.DataForTests.Companion.TASK_TITLE
-import com.android.dayplanner.app.tests.DataForTests.Companion.TASK_TITLE_EXTRA1
-import com.android.dayplanner.app.tests.DataForTests.Companion.TASK_TITLE_EXTRA2
-import com.android.dayplanner.app.tests.DataForTests.Companion.TASK_TITLE_EXTRA3
-import com.android.dayplanner.app.tests.DataForTests.Companion.TASK_TITLE_EXTRA4
-import com.android.dayplanner.app.tests.DataForTests.Companion.TASK_TITLE_EXTRA5
-import com.android.dayplanner.app.tests.DataForTests.Companion.TASK_TITLE_EXTRA6
+import com.android.dayplanner.app.tests.DataForTests.DATE
+import com.android.dayplanner.app.tests.DataForTests.START_DATE
+import com.android.dayplanner.app.tests.DataForTests.TASK_DESCRIPTION
+import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE
+import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA1
+import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA2
+import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA3
+import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA4
+import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA5
+import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA6
 import io.github.kakaocup.kakao.screen.Screen.Companion.onScreen
 import org.junit.Test
 
-class TestsForTasksList : BaseUITests() {
+class TestsForTasksList : SetUp() {
 
     /*
      * Scenario
@@ -30,7 +30,7 @@ class TestsForTasksList : BaseUITests() {
      * Step 8. Check the task not displayed;
      */
     @Test
-    fun checkAddingNewTask() {
+    fun checkAddingAndDeletingNewTask() {
         onScreen<MainScreen> {
             actionClickOnFabTaskButton()
         }
@@ -44,6 +44,16 @@ class TestsForTasksList : BaseUITests() {
             assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, START_DATE)
             actionDeleteTheTask(TASK_TITLE)
             assertTheTaskIsNotDisplayed(TASK_TITLE)
+            actionClickOnFabTaskButton()
+        }
+        onScreen<NewTaskScreen> {
+            actionEditTextTitle(TASK_TITLE_EXTRA1)
+            actionEditTextDescription(TASK_DESCRIPTION)
+            actionEditTextData(DATE)
+            actionClickOnSaveButton()
+        }
+        onScreen<MainScreen> {
+            assertTheListIsEmpty()
         }
     }
 
@@ -60,9 +70,7 @@ class TestsForTasksList : BaseUITests() {
      * Step 9. Mark the task as not completed;
      * Step 9. Check the task not displayed;
      * Step 10. Press Back;
-     * Step 11. Check the added task;
-     * Step 12. Delete the created task;
-     * Step 13. Check the task not displayed;
+     * Step 11. Check the task is displayed;
      */
     @Test
     fun checkArchivingOfTasks() {
@@ -86,8 +94,6 @@ class TestsForTasksList : BaseUITests() {
         }
         onScreen<MainScreen> {
             assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, DATE)
-            actionDeleteTheTask(TASK_TITLE)
-            assertTheTaskIsNotDisplayed(TASK_TITLE)
         }
     }
 
@@ -191,7 +197,6 @@ class TestsForTasksList : BaseUITests() {
      * Step 7. Click 'Save';
      * Step 8. Check the background image is not displayed;
      * Step 9. Check tha background text is not displayed;
-     * Step 10. Delete the created task;
      */
     @Test
     fun checkBackgroundImageAndTextDisappears() {
@@ -209,7 +214,6 @@ class TestsForTasksList : BaseUITests() {
         onScreen<MainScreen> {
             assertBackgroundImageIsNotVisible()
             assertBackgroundTextIsNotVisible()
-            actionDeleteTheTask(TASK_TITLE)
         }
     }
 }

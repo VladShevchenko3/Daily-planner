@@ -2,25 +2,26 @@ package com.android.dayplanner.app.screens
 
 import androidx.test.espresso.Espresso.openContextualActionModeOverflowMenu
 import com.android.dayplanner.app.R
+import com.android.dayplanner.app.screens.ListOfTasksBasic.ListOfTasks
 import io.github.kakaocup.kakao.common.views.KView
 import io.github.kakaocup.kakao.image.KImageView
 import io.github.kakaocup.kakao.recycler.KRecyclerView
 import io.github.kakaocup.kakao.screen.Screen
 import io.github.kakaocup.kakao.text.KButton
 import io.github.kakaocup.kakao.text.KTextView
+import junit.framework.AssertionFailedError
 
-class MainScreen : Screen<MainScreen>() {
+class MainScreen : Screen<MainScreen>(), ListOfTasksBasic {
 
     private val fabTaskButton = KButton { withId(R.id.floating_action_button) }
     private val showTaskHistoryView = KView { withText(R.string.label_history) }
-    private val recyclerView = KRecyclerView({
+    private val listOfTasksView = KRecyclerView({
         withId(R.id.recyclerView)
     }, itemTypeBuilder = {
-        itemType(::ListOfTaskFragment)
+        itemType(::ListOfTasks)
     })
     private val deleteAllTaskView = KView { withText(R.string.label_delete_all) }
     private val yesView = KView { withText(R.string.yes) }
-    private val noView = KView { withText(R.string.no) }
     private val backgroundMainImageView = KImageView { withId(R.id.imageView) }
     private val backgroundMainTextView = KTextView { withId(R.id.textView) }
 
@@ -29,33 +30,15 @@ class MainScreen : Screen<MainScreen>() {
     }
 
     fun actionDeleteTheTask(textTitle: String) {
-        recyclerView {
-            childWith<ListOfTaskFragment> {
-                withDescendant { withText(textTitle) }
-            } perform {
-                deleteTaskButton.click()
-            }
-        }
+        actionClickONDeleteButton(listOfTasksView, textTitle)
     }
 
     fun actionEditTheTask(textTitle: String) {
-        recyclerView {
-            childWith<ListOfTaskFragment> {
-                withDescendant { withText(textTitle) }
-            } perform {
-                titleTextField.click()
-            }
-        }
+        actionClickOnTheTask(listOfTasksView, textTitle)
     }
 
     fun actionClickOnCompleteTheTask(textTitle: String) {
-        recyclerView {
-            childWith<ListOfTaskFragment> {
-                withDescendant { withText(textTitle) }
-            } perform {
-                completeTaskCheckBox.click()
-            }
-        }
+        actionClickOnCheckBox(listOfTasksView, textTitle)
     }
 
     fun actionOpensTheOverflowMenu() {
@@ -75,27 +58,18 @@ class MainScreen : Screen<MainScreen>() {
     }
 
     fun assertTheTaskIsNotDisplayed(textTitle: String) {
-        recyclerView {
-            childWith<ListOfTaskFragment> {
-                withDescendant { withText(textTitle) }
-            } perform {
-                doesNotExist()
-            }
-        }
+        assertTheTaskIsNotInTheList(listOfTasksView, textTitle)
     }
 
     fun assertTaskAddedInTheList(textTitle: String, textDescription: String, date: String) {
-        recyclerView {
-            childWith<ListOfTaskFragment> {
-                withDescendant { withText(textTitle) }
-            } perform {
-                descriptionTextField.hasText(textDescription)
-                dateTextField.hasText(date)
-            }
-        }
+        assertTheTaskIsInTheList(listOfTasksView, textTitle, textDescription, date)
     }
 
-    fun assertTheListIsEmpty() = recyclerView.getSize() == 0
+    fun assertTheListIsEmpty(): Boolean {
+        if (listOfTasksView.getSize() == 0) return true
+        else
+            throw AssertionFailedError("The list is not empty.")
+    }
 
     fun assertBackgroundImageIsVisible() {
         backgroundMainImageView.isVisible()

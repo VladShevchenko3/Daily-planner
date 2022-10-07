@@ -18,8 +18,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments += mapOf("clearPackageData" to "true")
     }
-
+    testOptions {    execution = "ANDROIDX_TEST_ORCHESTRATOR"  }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -76,5 +77,6 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.0-alpha01")
 
     androidTestImplementation("io.github.kakaocup:kakao:3.0.4")
+    androidTestUtil("androidx.test:orchestrator:1.4.1")
 
 }

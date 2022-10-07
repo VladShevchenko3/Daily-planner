@@ -1,25 +1,20 @@
 package com.android.dayplanner.app.screens
 
 import com.android.dayplanner.app.R
+import com.android.dayplanner.app.screens.ListOfTasksBasic.ListOfTasks
 import io.github.kakaocup.kakao.recycler.KRecyclerView
 import io.github.kakaocup.kakao.screen.Screen
 
-class TasksHistoryScreen : Screen<TasksHistoryScreen>() {
+class TasksHistoryScreen : Screen<TasksHistoryScreen>(), ListOfTasksBasic {
 
-    private val recyclerView = KRecyclerView({
+    private val listOfCompetedTasks = KRecyclerView({
         withId(R.id.recyclerView)
     }, itemTypeBuilder = {
-        itemType(::ListOfTaskFragment)
+        itemType(::ListOfTasks)
     })
 
     fun actionClickOnCompleteTaskButton(textTitle: String) {
-        recyclerView {
-            childWith<ListOfTaskFragment> {
-                withDescendant { withText(textTitle) }
-            } perform {
-                completeTaskCheckBox.click()
-            }
-        }
+        actionClickOnCheckBox(listOfCompetedTasks, textTitle)
     }
 
     fun actionPressBack() {
