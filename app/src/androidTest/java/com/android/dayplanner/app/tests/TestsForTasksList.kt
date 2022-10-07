@@ -44,16 +44,6 @@ class TestsForTasksList : SetUp() {
             assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, START_DATE)
             actionDeleteTheTask(TASK_TITLE)
             assertTheTaskIsNotDisplayed(TASK_TITLE)
-            actionClickOnFabTaskButton()
-        }
-        onScreen<NewTaskScreen> {
-            actionEditTextTitle(TASK_TITLE_EXTRA1)
-            actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
-            actionClickOnSaveButton()
-        }
-        onScreen<MainScreen> {
-            assertTheListIsEmpty()
         }
     }
 
