@@ -20,7 +20,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments += mapOf("clearPackageData" to "true")
     }
-    testOptions {    execution = "ANDROIDX_TEST_ORCHESTRATOR"  }
+    testOptions { execution = "ANDROIDX_TEST_ORCHESTRATOR" }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -78,5 +78,9 @@ dependencies {
 
     androidTestImplementation("io.github.kakaocup:kakao:3.0.4")
     androidTestUtil("androidx.test:orchestrator:1.4.1")
+
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.1.7'")
+    testImplementation("io.mockk:mockk:1.9.3")
+    androidTestImplementation("com.kaspersky.android-components:kaspresso:1.1.0")
 
 }
