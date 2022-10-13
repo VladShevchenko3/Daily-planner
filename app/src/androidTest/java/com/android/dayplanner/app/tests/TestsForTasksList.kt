@@ -105,7 +105,7 @@ class TestsForTasksList : SetUp() {
      * Step 10. Check the list is empty
      */
     @Test
-    fun checkFindingTaskInList() {
+    fun checkFindingAndEditingATaskInList() {
         onScreen<MainScreen> {
             actionClickOnFabTaskButton()
         }
