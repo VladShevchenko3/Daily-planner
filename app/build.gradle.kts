@@ -38,7 +38,6 @@ android {
             jvmTarget = "1.8"
         }
     }
-
     buildFeatures {
         dataBinding = true
     }
@@ -78,5 +77,4 @@ dependencies {
 
     androidTestImplementation("io.github.kakaocup:kakao:3.0.4")
     androidTestUtil("androidx.test:orchestrator:1.4.1")
-
 }
