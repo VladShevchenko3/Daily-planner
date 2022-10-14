@@ -1,10 +1,10 @@
 package com.android.dayplanner.app.tests
 
-import com.android.dayplanner.app.screens.MainScreen
+import com.android.dayplanner.app.screens.HomeScreen
 import com.android.dayplanner.app.screens.NewTaskScreen
 import com.android.dayplanner.app.screens.TasksHistoryScreen
-import com.android.dayplanner.app.tests.DataForTests.DATE
 import com.android.dayplanner.app.tests.DataForTests.START_DATE
+import com.android.dayplanner.app.tests.DataForTests.TASK_DATA
 import com.android.dayplanner.app.tests.DataForTests.TASK_DESCRIPTION
 import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE
 import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA1
@@ -31,16 +31,16 @@ class TestsForTasksList : SetUp() {
      */
     @Test
     fun checkAddingAndDeletingNewTask() {
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             actionClickOnFabTaskButton()
         }
         onScreen<NewTaskScreen> {
             actionEditTextTitle(TASK_TITLE)
             actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
+            actionEditTextData(TASK_DATA)
             actionClickOnSaveButton()
         }
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, START_DATE)
             actionDeleteTheTask(TASK_TITLE)
             assertTheTaskIsNotDisplayed(TASK_TITLE)
@@ -64,16 +64,16 @@ class TestsForTasksList : SetUp() {
      */
     @Test
     fun checkArchivingOfTasks() {
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             actionClickOnFabTaskButton()
         }
         onScreen<NewTaskScreen> {
             actionEditTextTitle(TASK_TITLE)
             actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
+            actionEditTextData(TASK_DATA)
             actionClickOnSaveButton()
         }
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             actionClickOnCompleteTheTask(TASK_TITLE)
             actionOpensTheOverflowMenu()
             actionClickOnTheTasksHistory()
@@ -82,8 +82,8 @@ class TestsForTasksList : SetUp() {
             actionClickOnCompleteTaskButton(TASK_TITLE)
             actionPressBack()
         }
-        onScreen<MainScreen> {
-            assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, DATE)
+        onScreen<HomeScreen> {
+            assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, TASK_DATA)
         }
     }
 
@@ -106,69 +106,69 @@ class TestsForTasksList : SetUp() {
      */
     @Test
     fun checkFindingAndEditingATaskInList() {
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             actionClickOnFabTaskButton()
         }
         onScreen<NewTaskScreen> {
             actionEditTextTitle(TASK_TITLE)
             actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
+            actionEditTextData(TASK_DATA)
             actionClickOnSaveButton()
         }
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             actionClickOnFabTaskButton()
         }
         onScreen<NewTaskScreen> {
             actionEditTextTitle(TASK_TITLE_EXTRA1)
             actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
+            actionEditTextData(TASK_DATA)
             actionClickOnSaveButton()
         }
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             actionClickOnFabTaskButton()
         }
         onScreen<NewTaskScreen> {
             actionEditTextTitle(TASK_TITLE_EXTRA2)
             actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
+            actionEditTextData(TASK_DATA)
             actionClickOnSaveButton()
         }
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             actionClickOnFabTaskButton()
         }
         onScreen<NewTaskScreen> {
             actionEditTextTitle(TASK_TITLE_EXTRA3)
             actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
+            actionEditTextData(TASK_DATA)
             actionClickOnSaveButton()
         }
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             actionClickOnFabTaskButton()
         }
         onScreen<NewTaskScreen> {
             actionEditTextTitle(TASK_TITLE_EXTRA4)
             actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
+            actionEditTextData(TASK_DATA)
             actionClickOnSaveButton()
         }
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             actionClickOnFabTaskButton()
         }
         onScreen<NewTaskScreen> {
             actionEditTextTitle(TASK_TITLE_EXTRA5)
             actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
+            actionEditTextData(TASK_DATA)
             actionClickOnSaveButton()
         }
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             actionEditTheTask(TASK_TITLE_EXTRA1)
         }
         onScreen<NewTaskScreen> {
             actionEditTextTitle(TASK_TITLE_EXTRA6)
             actionClickOnSaveButton()
         }
-        onScreen<MainScreen> {
-            assertTaskAddedInTheList(TASK_TITLE_EXTRA6, TASK_DESCRIPTION, DATE)
+        onScreen<HomeScreen> {
+            assertTaskAddedInTheList(TASK_TITLE_EXTRA6, TASK_DESCRIPTION, TASK_DATA)
             actionOpensTheOverflowMenu()
             actionClickOnTheDeleteAllTasks()
             actionClickOnYesButton()
@@ -190,7 +190,7 @@ class TestsForTasksList : SetUp() {
      */
     @Test
     fun checkBackgroundImageAndTextDisappears() {
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             assertBackgroundImageIsVisible()
             assertBackgroundTextIsVisible()
             actionClickOnFabTaskButton()
@@ -198,10 +198,10 @@ class TestsForTasksList : SetUp() {
         onScreen<NewTaskScreen> {
             actionEditTextTitle(TASK_TITLE)
             actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
+            actionEditTextData(TASK_DATA)
             actionClickOnSaveButton()
         }
-        onScreen<MainScreen> {
+        onScreen<HomeScreen> {
             assertBackgroundImageIsNotVisible()
             assertBackgroundTextIsNotVisible()
         }

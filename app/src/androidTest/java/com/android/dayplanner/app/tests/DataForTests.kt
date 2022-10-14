@@ -12,6 +12,6 @@ object DataForTests {
         const val TASK_TITLE_EXTRA5 = "Create extra5 tests"
         const val TASK_TITLE_EXTRA6 = "Create extra6 tests"
         const val TASK_DESCRIPTION = "Need to use Kakao framework"
-        val DATE = receiveCurrentDate()
-        val START_DATE = DATE
+        val TASK_DATA = receiveCurrentDate()
+        val START_DATE = TASK_DATA
 }
