@@ -3,15 +3,19 @@ package com.android.dayplanner.app.screens
 import androidx.test.espresso.Espresso.openContextualActionModeOverflowMenu
 import com.android.dayplanner.app.R
 import com.android.dayplanner.app.screens.ListOfTasksBasic.ListOfTasks
+import com.android.dayplanner.app.ui.MainActivity
+import com.kaspersky.kaspresso.screens.KScreen
 import io.github.kakaocup.kakao.common.views.KView
 import io.github.kakaocup.kakao.image.KImageView
 import io.github.kakaocup.kakao.recycler.KRecyclerView
-import io.github.kakaocup.kakao.screen.Screen
 import io.github.kakaocup.kakao.text.KButton
 import io.github.kakaocup.kakao.text.KTextView
 import junit.framework.AssertionFailedError
 
-class MainScreen : Screen<MainScreen>(), ListOfTasksBasic {
+object HomeScreen : KScreen<HomeScreen>(), ListOfTasksBasic {
+
+    override val layoutId = R.layout.activity_main
+    override val viewClass = MainActivity::class.java
 
     private val fabTaskButton = KButton { withId(R.id.floating_action_button) }
     private val showTaskHistoryView = KView { withText(R.string.label_history) }
