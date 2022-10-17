@@ -74,9 +74,12 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.4.0")
     implementation("androidx.test.espresso:espresso-idling-resource:3.4.0")
-    implementation("androidx.core:core-splashscreen:1.0.0-alpha01")
+    implementation("androidx.core:core-splashscreen:1.0.0")
 
-    androidTestImplementation("io.github.kakaocup:kakao:3.0.4")
+    androidTestImplementation("io.github.kakaocup:kakao:3.1.0")
     androidTestUtil("androidx.test:orchestrator:1.4.1")
+    androidTestImplementation("com.kaspersky.android-components:kaspresso:1.4.1")
+    androidTestImplementation("com.kaspersky.android-components:adbserver-device:1.0.1")
+
 
 }
