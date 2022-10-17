@@ -26,7 +26,8 @@ class TestsForTasksList : BaseTest() {
     fun checkAddingAndDeletingNewTaskNew() = run {
         step("Open \"Home\" screen and click fab button") {
             HomeScreen {
-                actionClickOnFabTaskButton() }
+                actionClickOnFabTaskButton()
+            }
         }
         step("Enter task title, description data and save the task on \"HewTask\" screen  ") {
             NewTaskScreen {
