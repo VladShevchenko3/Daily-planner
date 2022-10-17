@@ -1,22 +1,15 @@
 package com.android.dayplanner.app.tests
 
-import com.android.dayplanner.app.screens.MainScreen
+import com.android.dayplanner.app.screens.HomeScreen
 import com.android.dayplanner.app.screens.NewTaskScreen
-import com.android.dayplanner.app.screens.TasksHistoryScreen
 import com.android.dayplanner.app.tests.DataForTests.DATE
 import com.android.dayplanner.app.tests.DataForTests.START_DATE
 import com.android.dayplanner.app.tests.DataForTests.TASK_DESCRIPTION
 import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE
-import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA1
-import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA2
-import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA3
-import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA4
-import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA5
-import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA6
 import io.github.kakaocup.kakao.screen.Screen.Companion.onScreen
 import org.junit.Test
 
-class TestsForTasksList : SetUp() {
+class TestsForTasksList : BaseTest() {
 
     /*
      * Scenario
@@ -30,149 +23,33 @@ class TestsForTasksList : SetUp() {
      * Step 8. Check the task not displayed;
      */
     @Test
-    fun checkAddingAndDeletingNewTask() {
-        onScreen<MainScreen> {
-            actionClickOnFabTaskButton()
+    fun checkAddingAndDeletingNewTaskNew() = run {
+        step("Open \"Home\" screen and click fab button") {
+            HomeScreen {
+                actionClickOnFabTaskButton() }
         }
-        onScreen<NewTaskScreen> {
-            actionEditTextTitle(TASK_TITLE)
-            actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
-            actionClickOnSaveButton()
+        step("Enter task title, description data and save the task on \"HewTask\" screen  ") {
+            NewTaskScreen {
+                actionEditTextTitle(TASK_TITLE)
+                actionEditTextDescription(TASK_DESCRIPTION)
+                actionEditTextData(DATE)
+                actionClickOnSaveButton()
+            }
         }
-        onScreen<MainScreen> {
-            assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, START_DATE)
-            actionDeleteTheTask(TASK_TITLE)
-            assertTheTaskIsNotDisplayed(TASK_TITLE)
+        step("Check the added task on the \"Home\" screen") {
+            HomeScreen {
+                assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, START_DATE)
+            }
         }
-    }
-
-    /*
-     * Scenario
-     * Step 1. Add new task;
-     * Step 2. Enter task title;
-     * Step 3. Enter task description;
-     * Step 4. Enter task data;
-     * Step 5. Click 'Save';
-     * Step 6. Mark the task as completed;
-     * Step 7. Open the toolbar;
-     * Step 8. Click 'Show Tasks History';
-     * Step 9. Mark the task as not completed;
-     * Step 9. Check the task not displayed;
-     * Step 10. Press Back;
-     * Step 11. Check the task is displayed;
-     */
-    @Test
-    fun checkArchivingOfTasks() {
-        onScreen<MainScreen> {
-            actionClickOnFabTaskButton()
+        step(" Delete the created task on the \"Home\" screen") {
+            HomeScreen {
+                actionDeleteTheTask(TASK_TITLE)
+            }
         }
-        onScreen<NewTaskScreen> {
-            actionEditTextTitle(TASK_TITLE)
-            actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
-            actionClickOnSaveButton()
-        }
-        onScreen<MainScreen> {
-            actionClickOnCompleteTheTask(TASK_TITLE)
-            actionOpensTheOverflowMenu()
-            actionClickOnTheTasksHistory()
-        }
-        onScreen<TasksHistoryScreen> {
-            actionClickOnCompleteTaskButton(TASK_TITLE)
-            actionPressBack()
-        }
-        onScreen<MainScreen> {
-            assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, DATE)
-        }
-    }
-
-    /*
-     * Scenario
-     * Step 1. Add new task;
-     * Step 2. Enter task title;
-     * Step 3. Enter task description;
-     * Step 4. Enter task data;
-     * Step 5. Click 'Save';
-     * Step 6. Repeat steps 1 to 5  four times;
-     * Step 7. Edit the last task;
-     * Step 6. Edit task title;
-     * Step 7. Click 'Save';
-     * Step 8. Check the modify task is displayed;
-     * Step 7. Open the toolbar;
-     * Step 8. Click 'Delete All Tasks';
-     * Step 9. Click 'Yes' on the dialog;
-     * Step 10. Check the list is empty
-     */
-    @Test
-    fun checkFindingAndEditingATaskInList() {
-        onScreen<MainScreen> {
-            actionClickOnFabTaskButton()
-        }
-        onScreen<NewTaskScreen> {
-            actionEditTextTitle(TASK_TITLE)
-            actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
-            actionClickOnSaveButton()
-        }
-        onScreen<MainScreen> {
-            actionClickOnFabTaskButton()
-        }
-        onScreen<NewTaskScreen> {
-            actionEditTextTitle(TASK_TITLE_EXTRA1)
-            actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
-            actionClickOnSaveButton()
-        }
-        onScreen<MainScreen> {
-            actionClickOnFabTaskButton()
-        }
-        onScreen<NewTaskScreen> {
-            actionEditTextTitle(TASK_TITLE_EXTRA2)
-            actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
-            actionClickOnSaveButton()
-        }
-        onScreen<MainScreen> {
-            actionClickOnFabTaskButton()
-        }
-        onScreen<NewTaskScreen> {
-            actionEditTextTitle(TASK_TITLE_EXTRA3)
-            actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
-            actionClickOnSaveButton()
-        }
-        onScreen<MainScreen> {
-            actionClickOnFabTaskButton()
-        }
-        onScreen<NewTaskScreen> {
-            actionEditTextTitle(TASK_TITLE_EXTRA4)
-            actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
-            actionClickOnSaveButton()
-        }
-        onScreen<MainScreen> {
-            actionClickOnFabTaskButton()
-        }
-        onScreen<NewTaskScreen> {
-            actionEditTextTitle(TASK_TITLE_EXTRA5)
-            actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
-            actionClickOnSaveButton()
-        }
-        onScreen<MainScreen> {
-            actionEditTheTask(TASK_TITLE_EXTRA1)
-        }
-        onScreen<NewTaskScreen> {
-            actionEditTextTitle(TASK_TITLE_EXTRA6)
-            actionClickOnSaveButton()
-        }
-        onScreen<MainScreen> {
-            assertTaskAddedInTheList(TASK_TITLE_EXTRA6, TASK_DESCRIPTION, DATE)
-            actionOpensTheOverflowMenu()
-            actionClickOnTheDeleteAllTasks()
-            actionClickOnYesButton()
-            assertTheListIsEmpty()
+        step(" Check the task not displayed on the \"Home\" screen") {
+            HomeScreen {
+                assertTheTaskIsNotDisplayed(TASK_TITLE)
+            }
         }
     }
 
@@ -189,21 +66,53 @@ class TestsForTasksList : SetUp() {
      * Step 9. Check tha background text is not displayed;
      */
     @Test
-    fun checkBackgroundImageAndTextDisappears() {
-        onScreen<MainScreen> {
-            assertBackgroundImageIsVisible()
-            assertBackgroundTextIsVisible()
-            actionClickOnFabTaskButton()
+    fun checkBackgroundImageAndTextDisappears() = run {
+        step("Check the background image is displayed") {
+            onScreen<HomeScreen> {
+                assertBackgroundImageIsVisible()
+            }
         }
-        onScreen<NewTaskScreen> {
-            actionEditTextTitle(TASK_TITLE)
-            actionEditTextDescription(TASK_DESCRIPTION)
-            actionEditTextData(DATE)
-            actionClickOnSaveButton()
+        step("Check the background text is displayed") {
+            onScreen<HomeScreen> {
+                assertBackgroundTextIsVisible()
+            }
         }
-        onScreen<MainScreen> {
-            assertBackgroundImageIsNotVisible()
-            assertBackgroundTextIsNotVisible()
+        step("Add new task") {
+            onScreen<HomeScreen> {
+                actionClickOnFabTaskButton()
+            }
+        }
+        step("Enter task title") {
+            onScreen<NewTaskScreen> {
+                actionEditTextTitle(TASK_TITLE)
+            }
+        }
+        step("Enter task description") {
+            onScreen<NewTaskScreen> {
+                actionEditTextDescription(TASK_DESCRIPTION)
+            }
+        }
+        step("Enter task data") {
+            onScreen<NewTaskScreen> {
+                actionEditTextData(DATE)
+            }
+        }
+        step("Click on 'Save'") {
+            onScreen<NewTaskScreen> {
+                actionClickOnSaveButton()
+            }
+        }
+        step("Check the background image is not displayed") {
+            onScreen<HomeScreen> {
+                assertBackgroundImageIsNotVisible()
+            }
+        }
+        step("Check the background text is not displayed") {
+            onScreen<HomeScreen> {
+                flakySafely(5000) {
+                    assertBackgroundTextIsNotVisible()
+                }
+            }
         }
     }
 }

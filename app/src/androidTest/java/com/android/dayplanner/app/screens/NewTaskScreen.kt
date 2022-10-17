@@ -1,11 +1,15 @@
 package com.android.dayplanner.app.screens
 
 import com.android.dayplanner.app.R
+import com.android.dayplanner.app.ui.detail.TaskDetailsFragment
+import com.kaspersky.kaspresso.screens.KScreen
 import io.github.kakaocup.kakao.edit.KEditText
-import io.github.kakaocup.kakao.screen.Screen
 import io.github.kakaocup.kakao.text.KButton
 
-class NewTaskScreen : Screen<NewTaskScreen>() {
+object NewTaskScreen : KScreen<NewTaskScreen>() {
+
+    override val layoutId = R.layout.task_details_fragment
+    override val viewClass = TaskDetailsFragment::class.java
 
     private val buttonSaveTask = KButton { withId(R.id.button_saveTask) }
     private val editTextTitle = KEditText { withId(R.id.editText_title) }
