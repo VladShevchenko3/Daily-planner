@@ -5,7 +5,7 @@ import com.android.dayplanner.app.ui.MainActivity
 import org.junit.After
 import org.junit.Before
 
-open class SetUp {
+open class BaseTest {
 
     lateinit var activityScenario: ActivityScenario<MainActivity>
 

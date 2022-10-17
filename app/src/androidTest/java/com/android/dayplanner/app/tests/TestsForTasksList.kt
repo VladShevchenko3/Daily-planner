@@ -16,7 +16,7 @@ import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_EXTRA6
 import io.github.kakaocup.kakao.screen.Screen.Companion.onScreen
 import org.junit.Test
 
-class TestsForTasksList : SetUp() {
+class TestsForTasksList : BaseTest() {
 
     /*
      * Scenario
