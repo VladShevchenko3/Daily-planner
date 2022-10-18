@@ -80,6 +80,4 @@ dependencies {
     androidTestUtil("androidx.test:orchestrator:1.4.1")
     androidTestImplementation("com.kaspersky.android-components:kaspresso:1.4.1")
     androidTestImplementation("com.kaspersky.android-components:adbserver-device:1.0.1")
-
-
 }
