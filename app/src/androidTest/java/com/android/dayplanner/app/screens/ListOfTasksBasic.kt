@@ -74,4 +74,14 @@ interface ListOfTasksBasic {
             }
         }
     }
+
+    fun assertTheStatusIsChecked(recyclerView: KRecyclerView, textTitle: String) {
+        recyclerView {
+            childWith<ListOfTasks> {
+                withDescendant { withText(textTitle) }
+            } perform {
+                completeTaskCheckBox.isChecked()
+            }
+        }
+    }
 }

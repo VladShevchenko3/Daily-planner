@@ -17,11 +17,15 @@ object TasksHistoryScreen : KScreen<TasksHistoryScreen>(), ListOfTasksBasic {
         itemType(::ListOfTasks)
     })
 
-    fun actionClickOnCompleteTaskButton(textTitle: String) {
+    fun actionUncheckTheTaskStatus(textTitle: String) {
         actionClickOnCheckBox(listOfCompetedTasks, textTitle)
     }
 
     fun actionPressBack() {
         pressBack()
+    }
+
+    fun assertTheStatusOfTaskIsChecked(textTitle: String) {
+        assertTheStatusIsChecked(listOfCompetedTasks, textTitle)
     }
 }

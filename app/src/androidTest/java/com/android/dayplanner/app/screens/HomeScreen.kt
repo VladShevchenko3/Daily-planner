@@ -14,7 +14,7 @@ import junit.framework.AssertionFailedError
 
 object HomeScreen : KScreen<HomeScreen>(), ListOfTasksBasic {
 
-    override val layoutId = R.layout.activity_main
+    override val layoutId = R.layout.home_fragment
     override val viewClass = MainActivity::class.java
 
     private val fabTaskButton = KButton { withId(R.id.floating_action_button) }
@@ -26,8 +26,6 @@ object HomeScreen : KScreen<HomeScreen>(), ListOfTasksBasic {
     })
     private val deleteAllTaskView = KView { withText(R.string.label_delete_all) }
     private val yesView = KView { withText(R.string.yes) }
-    private val backgroundMainImageView = KImageView { withId(R.id.imageView) }
-    private val backgroundMainTextView = KTextView { withId(R.id.textView) }
 
     fun actionClickOnFabTaskButton() {
         fabTaskButton.click()
@@ -67,27 +65,5 @@ object HomeScreen : KScreen<HomeScreen>(), ListOfTasksBasic {
 
     fun assertTaskAddedInTheList(textTitle: String, textDescription: String, date: String) {
         assertTheTaskIsInTheList(listOfTasksView, textTitle, textDescription, date)
-    }
-
-    fun assertTheListIsEmpty(): Boolean {
-        if (listOfTasksView.getSize() == 0) return true
-        else
-            throw AssertionFailedError("The list is not empty.")
-    }
-
-    fun assertBackgroundImageIsVisible() {
-        backgroundMainImageView.isVisible()
-    }
-
-    fun assertBackgroundImageIsNotVisible() {
-        backgroundMainImageView.isNotDisplayed()
-    }
-
-    fun assertBackgroundTextIsVisible() {
-        backgroundMainTextView.hasText(R.string.no_tasks)
-    }
-
-    fun assertBackgroundTextIsNotVisible() {
-        backgroundMainTextView.isNotDisplayed()
     }
 }
