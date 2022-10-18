@@ -6,7 +6,6 @@ import com.android.dayplanner.app.tests.DataForTests.DATE
 import com.android.dayplanner.app.tests.DataForTests.START_DATE
 import com.android.dayplanner.app.tests.DataForTests.TASK_DESCRIPTION
 import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE
-import io.github.kakaocup.kakao.screen.Screen.Companion.onScreen
 import org.junit.Test
 
 class TestsForTasksList : BaseTest() {
@@ -29,7 +28,7 @@ class TestsForTasksList : BaseTest() {
                 actionClickOnFabTaskButton()
             }
         }
-        step("Enter task title, description data and save the task on \"HewTask\" screen  ") {
+        step("Enter task title, description data and save the task on \"HewTask\" screen") {
             NewTaskScreen {
                 actionEditTextTitle(TASK_TITLE)
                 actionEditTextDescription(TASK_DESCRIPTION)
@@ -68,51 +67,37 @@ class TestsForTasksList : BaseTest() {
      */
     @Test
     fun checkBackgroundImageAndTextDisappears() = run {
-        step("Check the background image is displayed") {
-            onScreen<HomeScreen> {
+        step("Check the background image is displayed on the \"Home\" screen") {
+            HomeScreen {
                 assertBackgroundImageIsVisible()
             }
         }
-        step("Check the background text is displayed") {
-            onScreen<HomeScreen> {
+        step("Check the background text is displayed on the \"Home\" screen") {
+            HomeScreen {
                 assertBackgroundTextIsVisible()
             }
         }
-        step("Add new task") {
-            onScreen<HomeScreen> {
+        step("Click fab button") {
+            HomeScreen {
                 actionClickOnFabTaskButton()
             }
         }
-        step("Enter task title") {
-            onScreen<NewTaskScreen> {
+        step("Enter task title, description data and save the task on \"HewTask\" screen") {
+            NewTaskScreen {
                 actionEditTextTitle(TASK_TITLE)
-            }
-        }
-        step("Enter task description") {
-            onScreen<NewTaskScreen> {
                 actionEditTextDescription(TASK_DESCRIPTION)
-            }
-        }
-        step("Enter task data") {
-            onScreen<NewTaskScreen> {
                 actionEditTextData(DATE)
-            }
-        }
-        step("Click on 'Save'") {
-            onScreen<NewTaskScreen> {
                 actionClickOnSaveButton()
             }
         }
-        step("Check the background image is not displayed") {
-            onScreen<HomeScreen> {
+        step("Check the background image is not displayed on the \"Home\" screen") {
+            HomeScreen {
                 assertBackgroundImageIsNotVisible()
             }
         }
-        step("Check the background text is not displayed") {
-            onScreen<HomeScreen> {
-                flakySafely(5000) {
-                    assertBackgroundTextIsNotVisible()
-                }
+        step("Check the background text is not displayed on the \"Home\" screen") {
+            HomeScreen {
+                assertBackgroundTextIsNotVisible()
             }
         }
     }
