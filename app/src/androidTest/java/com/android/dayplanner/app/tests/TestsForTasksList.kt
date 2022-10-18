@@ -1,38 +1,31 @@
 package com.android.dayplanner.app.tests
 
+import com.android.dayplanner.app.screens.EmptyTaskListScreen
 import com.android.dayplanner.app.screens.HomeScreen
 import com.android.dayplanner.app.screens.NewTaskScreen
-import com.android.dayplanner.app.tests.DataForTests.DATE
+import com.android.dayplanner.app.screens.TasksHistoryScreen
 import com.android.dayplanner.app.tests.DataForTests.START_DATE
+import com.android.dayplanner.app.tests.DataForTests.TASK_DATE
 import com.android.dayplanner.app.tests.DataForTests.TASK_DESCRIPTION
 import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE
+import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_NEW
 import org.junit.Test
+
 
 class TestsForTasksList : BaseTest() {
 
-    /*
-     * Scenario
-     * Step 1. Add new task;
-     * Step 2. Enter task title;
-     * Step 3. Enter task description;
-     * Step 4. Enter task data;
-     * Step 5. Click 'Save';
-     * Step 6. Check the added task;
-     * Step 7. Delete the created task;
-     * Step 8. Check the task not displayed;
-     */
     @Test
-    fun checkAddingAndDeletingNewTaskNew() = run {
+    fun checkAddingAndDeletingTheTask() = run {
         step("Open \"Home\" screen and click fab button") {
             HomeScreen {
                 actionClickOnFabTaskButton()
             }
         }
-        step("Enter task title, description data and save the task on \"HewTask\" screen") {
+        step("Enter the task title, description, data and save the task on \"HewTask\" screen") {
             NewTaskScreen {
                 actionEditTextTitle(TASK_TITLE)
                 actionEditTextDescription(TASK_DESCRIPTION)
-                actionEditTextData(DATE)
+                actionEditTextData(TASK_DATE)
                 actionClickOnSaveButton()
             }
         }
@@ -53,51 +46,91 @@ class TestsForTasksList : BaseTest() {
         }
     }
 
-    /*
-     * Scenario
-     * Step 1. Check the background image is displayed;
-     * Step 2. Check tha background text is displayed;
-     * Step 3. Add new task;
-     * Step 4. Enter task title;
-     * Step 5. Enter task description;
-     * Step 6. Enter task data;
-     * Step 7. Click 'Save';
-     * Step 8. Check the background image is not displayed;
-     * Step 9. Check tha background text is not displayed;
-     */
     @Test
-    fun checkBackgroundImageAndTextDisappears() = run {
-        step("Check the background image is displayed on the \"Home\" screen") {
-            HomeScreen {
-                assertBackgroundImageIsVisible()
-            }
-        }
-        step("Check the background text is displayed on the \"Home\" screen") {
-            HomeScreen {
-                assertBackgroundTextIsVisible()
-            }
-        }
-        step("Click fab button") {
+    fun checkEditingTheTaskInList() = run {
+        step("Open \"Home\" screen and click fab button") {
             HomeScreen {
                 actionClickOnFabTaskButton()
             }
         }
-        step("Enter task title, description data and save the task on \"HewTask\" screen") {
+        step("Enter the task title, description, data and save the task on \"HewTask\" screen") {
             NewTaskScreen {
                 actionEditTextTitle(TASK_TITLE)
                 actionEditTextDescription(TASK_DESCRIPTION)
-                actionEditTextData(DATE)
+                actionEditTextData(TASK_DATE)
                 actionClickOnSaveButton()
             }
         }
-        step("Check the background image is not displayed on the \"Home\" screen") {
+        step("Edit the task on \"Home\" screen") {
             HomeScreen {
-                assertBackgroundImageIsNotVisible()
+                actionEditTheTask(TASK_TITLE)
             }
         }
-        step("Check the background text is not displayed on the \"Home\" screen") {
+        step("Change the task title and save the task on \"HewTask\" screen") {
+            NewTaskScreen {
+                actionEditTextTitle(TASK_TITLE_NEW)
+                actionClickOnSaveButton()
+            }
+        }
+        step("Check the modify task is displayed on \"Home\" screen") {
             HomeScreen {
-                assertBackgroundTextIsNotVisible()
+                assertTaskAddedInTheList(TASK_TITLE_NEW, TASK_DESCRIPTION, TASK_DATE)
+            }
+        }
+        step("Delete all tasks on \"Home\" screen") {
+            HomeScreen {
+                actionOpensTheOverflowMenu()
+                actionClickOnTheDeleteAllTasks()
+                actionClickOnYesButton()
+            }
+        }
+        step("Check the image and text are displayed") {
+            EmptyTaskListScreen {
+                assertBackgroundImageIsVisible()
+                assertBackgroundTextIsVisible()
+            }
+        }
+    }
+
+    @Test
+    fun checkArchivingOfTasks() = run {
+        step("Open \"Home\" screen and click fab button") {
+            HomeScreen {
+                actionClickOnFabTaskButton()
+            }
+        }
+        step("Enter the task title, description, data and save the task on \"HewTask\" screen") {
+            NewTaskScreen {
+                actionEditTextTitle(TASK_TITLE)
+                actionEditTextDescription(TASK_DESCRIPTION)
+                actionEditTextData(TASK_DATE)
+                actionClickOnSaveButton()
+            }
+        }
+        step("Complete the task on \"Home\" screen") {
+            HomeScreen {
+                actionClickOnCompleteTheTask(TASK_TITLE)
+            }
+        }
+        step("Open \"TaskHistory\" screen") {
+            HomeScreen {
+                actionOpensTheOverflowMenu()
+                actionClickOnTheTasksHistory()
+            }
+        }
+        step(
+            "Check the complete status of the task, uncheck complete status " +
+                    "and press back on \"TaskHistory\" screen"
+        ) {
+            TasksHistoryScreen {
+                assertTheStatusOfTaskIsChecked(TASK_TITLE)
+                actionUncheckTheTaskStatus(TASK_TITLE)
+                actionPressBack()
+            }
+        }
+        step("Check the task is displayed on \"Home\" screen") {
+            HomeScreen {
+                assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, TASK_DATE)
             }
         }
     }
