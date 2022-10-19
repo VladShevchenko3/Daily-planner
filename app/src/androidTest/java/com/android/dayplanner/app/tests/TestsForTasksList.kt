@@ -16,12 +16,12 @@ class TestsForTasksList : BaseTest() {
 
     @Test
     fun checkAddingAndDeletingTheTask() = run {
-        step("Open \"Home\" screen and click fab button") {
+        step("Open the \"Home\" screen and click the fab button") {
             HomeScreen {
                 actionClickOnFabTaskButton()
             }
         }
-        step("Enter the task title, description, data and save the task on \"HewTask\" screen") {
+        step("Enter the task title, description, data and save the task on the \"HewTask\" screen") {
             NewTaskScreen {
                 actionEditTextTitle(TASK_TITLE)
                 actionEditTextDescription(TASK_DESCRIPTION)
@@ -48,12 +48,12 @@ class TestsForTasksList : BaseTest() {
 
     @Test
     fun checkEditingTheTaskInList() = run {
-        step("Open \"Home\" screen and click fab button") {
+        step("Open the \"Home\" screen and click the fab button") {
             HomeScreen {
                 actionClickOnFabTaskButton()
             }
         }
-        step("Enter the task title, description, data and save the task on \"HewTask\" screen") {
+        step("Enter the task title, description, data and save the task on the \"HewTask\" screen") {
             NewTaskScreen {
                 actionEditTextTitle(TASK_TITLE)
                 actionEditTextDescription(TASK_DESCRIPTION)
@@ -61,23 +61,23 @@ class TestsForTasksList : BaseTest() {
                 actionClickOnSaveButton()
             }
         }
-        step("Edit the task on \"Home\" screen") {
+        step("Edit the task on the \"Home\" screen") {
             HomeScreen {
                 actionEditTheTask(TASK_TITLE)
             }
         }
-        step("Change the task title and save the task on \"HewTask\" screen") {
+        step("Change the task title and save the task on the \"HewTask\" screen") {
             NewTaskScreen {
                 actionEditTextTitle(TASK_TITLE_NEW)
                 actionClickOnSaveButton()
             }
         }
-        step("Check the modify task is displayed on \"Home\" screen") {
+        step("Check the modify task is displayed on the \"Home\" screen") {
             HomeScreen {
                 assertTaskAddedInTheList(TASK_TITLE_NEW, TASK_DESCRIPTION, TASK_DATE)
             }
         }
-        step("Delete all tasks on \"Home\" screen") {
+        step("Delete all tasks on the \"Home\" screen") {
             HomeScreen {
                 actionOpensTheOverflowMenu()
                 actionClickOnTheDeleteAllTasks()
@@ -94,12 +94,12 @@ class TestsForTasksList : BaseTest() {
 
     @Test
     fun checkArchivingOfTasks() = run {
-        step("Open \"Home\" screen and click fab button") {
+        step("Open the \"Home\" screen and click the fab button") {
             HomeScreen {
                 actionClickOnFabTaskButton()
             }
         }
-        step("Enter the task title, description, data and save the task on \"HewTask\" screen") {
+        step("Enter the task title, description, data and save the task on the \"HewTask\" screen") {
             NewTaskScreen {
                 actionEditTextTitle(TASK_TITLE)
                 actionEditTextDescription(TASK_DESCRIPTION)
@@ -107,12 +107,12 @@ class TestsForTasksList : BaseTest() {
                 actionClickOnSaveButton()
             }
         }
-        step("Complete the task on \"Home\" screen") {
+        step("Complete the task on the \"Home\" screen") {
             HomeScreen {
                 actionClickOnCompleteTheTask(TASK_TITLE)
             }
         }
-        step("Open \"TaskHistory\" screen") {
+        step("Open the \"TaskHistory\" screen") {
             HomeScreen {
                 actionOpensTheOverflowMenu()
                 actionClickOnTheTasksHistory()
@@ -120,7 +120,7 @@ class TestsForTasksList : BaseTest() {
         }
         step(
             "Check the complete status of the task, uncheck complete status " +
-                    "and press back on \"TaskHistory\" screen"
+                    "and press back on the \"TaskHistory\" screen"
         ) {
             TasksHistoryScreen {
                 assertTheStatusOfTaskIsChecked(TASK_TITLE)
@@ -128,7 +128,7 @@ class TestsForTasksList : BaseTest() {
                 actionPressBack()
             }
         }
-        step("Check the task is displayed on \"Home\" screen") {
+        step("Check the task is displayed on the \"Home\" screen") {
             HomeScreen {
                 assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, TASK_DATE)
             }
