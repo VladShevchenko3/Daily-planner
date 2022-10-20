@@ -16,7 +16,7 @@ object HomeScreen : KScreen<HomeScreen>(), ListOfTasksBasic {
 
     private val fabTaskButton = KButton { withId(R.id.floating_action_button) }
     private val showTaskHistoryView = KView { withText(R.string.label_history) }
-    private val taskItemView = KRecyclerView({
+    private val listOfTasks = KRecyclerView({
         withId(R.id.recyclerView)
     }, itemTypeBuilder = {
         itemType(::TaskItem)
@@ -29,15 +29,15 @@ object HomeScreen : KScreen<HomeScreen>(), ListOfTasksBasic {
     }
 
     fun actionDeleteTheTask(textTitle: String) {
-        actionClickONDeleteButton(taskItemView, textTitle)
+        actionClickONDeleteButton(listOfTasks, textTitle)
     }
 
     fun actionEditTheTask(textTitle: String) {
-        actionClickOnTheTask(taskItemView, textTitle)
+        actionClickOnTheTask(listOfTasks, textTitle)
     }
 
     fun actionClickOnCompleteTheTask(textTitle: String) {
-        actionClickOnCheckBox(taskItemView, textTitle)
+        actionClickOnCheckBox(listOfTasks, textTitle)
     }
 
     fun actionOpensTheOverflowMenu() {
@@ -57,15 +57,15 @@ object HomeScreen : KScreen<HomeScreen>(), ListOfTasksBasic {
     }
 
     fun assertTheTaskIsNotDisplayed(textTitle: String) {
-        assertTheTaskIsNotInTheList(taskItemView, textTitle)
+        assertTheTaskIsNotInTheList(listOfTasks, textTitle)
     }
 
     fun assertTaskAddedInTheList(textTitle: String, textDescription: String, date: String) {
-        assertTheTaskIsInTheList(taskItemView, textTitle, textDescription, date)
+        assertTheTaskIsInTheList(listOfTasks, textTitle, textDescription, date)
     }
 
     fun assertTheListIsEmpty() {
-        taskItemView {
+        listOfTasks {
             hasSize(0)
         }
     }
