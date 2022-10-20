@@ -4,18 +4,16 @@ import com.android.dayplanner.app.screens.EmptyTaskListScreen
 import com.android.dayplanner.app.screens.HomeScreen
 import com.android.dayplanner.app.screens.NewTaskScreen
 import com.android.dayplanner.app.screens.TasksHistoryScreen
-import com.android.dayplanner.app.tests.DataForTests.START_DATE
-import com.android.dayplanner.app.tests.DataForTests.TASK_DATE
-import com.android.dayplanner.app.tests.DataForTests.TASK_DESCRIPTION
-import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE
-import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE_NEW
+import com.android.dayplanner.app.tests.DataForTests.EDIT_TASK_TITLE1
+import com.android.dayplanner.app.tests.DataForTests.TASK_DATE1
+import com.android.dayplanner.app.tests.DataForTests.TASK_DESCRIPTION1
+import com.android.dayplanner.app.tests.DataForTests.TASK_TITLE1
 import org.junit.Test
-
 
 class TestsForTasksList : BaseTest() {
 
     @Test
-    fun checkAddingAndDeletingTheTask() = run {
+    fun checkCreatingAndDeletingTheTask() = run {
         step("Open the \"Home\" screen and click the fab button") {
             HomeScreen {
                 actionClickOnFabTaskButton()
@@ -23,25 +21,25 @@ class TestsForTasksList : BaseTest() {
         }
         step("Enter the task title, description, data and save the task on the \"HewTask\" screen") {
             NewTaskScreen {
-                actionEditTextTitle(TASK_TITLE)
-                actionEditTextDescription(TASK_DESCRIPTION)
-                actionEditTextData(TASK_DATE)
+                actionEditTextTitle(TASK_TITLE1)
+                actionEditTextDescription(TASK_DESCRIPTION1)
+                actionEditTextData(TASK_DATE1)
                 actionClickOnSaveButton()
             }
         }
         step("Check the added task on the \"Home\" screen") {
             HomeScreen {
-                assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, START_DATE)
+                assertTaskAddedInTheList(TASK_TITLE1, TASK_DESCRIPTION1, TASK_DATE1)
             }
         }
         step(" Delete the created task on the \"Home\" screen") {
             HomeScreen {
-                actionDeleteTheTask(TASK_TITLE)
+                actionDeleteTheTask(TASK_TITLE1)
             }
         }
         step(" Check the task not displayed on the \"Home\" screen") {
             HomeScreen {
-                assertTheTaskIsNotDisplayed(TASK_TITLE)
+                assertTheTaskIsNotDisplayed(TASK_TITLE1)
             }
         }
     }
@@ -55,26 +53,26 @@ class TestsForTasksList : BaseTest() {
         }
         step("Enter the task title, description, data and save the task on the \"HewTask\" screen") {
             NewTaskScreen {
-                actionEditTextTitle(TASK_TITLE)
-                actionEditTextDescription(TASK_DESCRIPTION)
-                actionEditTextData(TASK_DATE)
+                actionEditTextTitle(TASK_TITLE1)
+                actionEditTextDescription(TASK_DESCRIPTION1)
+                actionEditTextData(TASK_DATE1)
                 actionClickOnSaveButton()
             }
         }
         step("Edit the task on the \"Home\" screen") {
             HomeScreen {
-                actionEditTheTask(TASK_TITLE)
+                actionEditTheTask(TASK_TITLE1)
             }
         }
-        step("Change the task title and save the task on the \"HewTask\" screen") {
+        step("Change the title of the task and save the task on the \"HewTask\" screen") {
             NewTaskScreen {
-                actionEditTextTitle(TASK_TITLE_NEW)
+                actionEditTextTitle(EDIT_TASK_TITLE1)
                 actionClickOnSaveButton()
             }
         }
         step("Check the modify task is displayed on the \"Home\" screen") {
             HomeScreen {
-                assertTaskAddedInTheList(TASK_TITLE_NEW, TASK_DESCRIPTION, TASK_DATE)
+                assertTaskAddedInTheList(EDIT_TASK_TITLE1, TASK_DESCRIPTION1, TASK_DATE1)
             }
         }
         step("Delete all tasks on the \"Home\" screen") {
@@ -106,15 +104,15 @@ class TestsForTasksList : BaseTest() {
         }
         step("Enter the task title, description, data and save the task on the \"HewTask\" screen") {
             NewTaskScreen {
-                actionEditTextTitle(TASK_TITLE)
-                actionEditTextDescription(TASK_DESCRIPTION)
-                actionEditTextData(TASK_DATE)
+                actionEditTextTitle(TASK_TITLE1)
+                actionEditTextDescription(TASK_DESCRIPTION1)
+                actionEditTextData(TASK_DATE1)
                 actionClickOnSaveButton()
             }
         }
         step("Complete the task on the \"Home\" screen") {
             HomeScreen {
-                actionClickOnCompleteTheTask(TASK_TITLE)
+                actionClickOnCompleteTheTask(TASK_TITLE1)
             }
         }
         step("Open the \"TaskHistory\" screen") {
@@ -128,14 +126,14 @@ class TestsForTasksList : BaseTest() {
                     "and press back on the \"TaskHistory\" screen"
         ) {
             TasksHistoryScreen {
-                assertTheStatusOfTaskIsChecked(TASK_TITLE)
-                actionUncheckTheTaskStatus(TASK_TITLE)
+                assertTheStatusOfTaskIsChecked(TASK_TITLE1)
+                actionUncheckTheTaskStatus(TASK_TITLE1)
                 actionPressBack()
             }
         }
         step("Check the task is displayed on the \"Home\" screen") {
             HomeScreen {
-                assertTaskAddedInTheList(TASK_TITLE, TASK_DESCRIPTION, TASK_DATE)
+                assertTaskAddedInTheList(TASK_TITLE1, TASK_DESCRIPTION1, TASK_DATE1)
             }
         }
     }

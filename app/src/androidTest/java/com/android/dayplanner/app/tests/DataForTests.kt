@@ -3,10 +3,9 @@ package com.android.dayplanner.app.tests
 import com.android.dayplanner.app.receiveCurrentDate
 
 object DataForTests {
-
-    const val TASK_TITLE = "Create new tests"
-    const val TASK_TITLE_NEW = "Edit tests"
-    const val TASK_DESCRIPTION = "Need to use Kakao framework"
-    val TASK_DATE = receiveCurrentDate()
-    val START_DATE = TASK_DATE
+    private val TASK_DATE = receiveCurrentDate()
+    const val TASK_TITLE1 = "title1"
+    const val EDIT_TASK_TITLE1 = "editTitle1"
+    const val TASK_DESCRIPTION1 = "description1"
+    val TASK_DATE1 = TASK_DATE
 }
