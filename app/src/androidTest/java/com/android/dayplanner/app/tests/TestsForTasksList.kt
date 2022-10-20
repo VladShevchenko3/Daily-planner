@@ -84,6 +84,11 @@ class TestsForTasksList : BaseTest() {
                 actionClickOnYesButton()
             }
         }
+        step("Check the list is empty") {
+            HomeScreen {
+                assertTheListIsEmpty()
+            }
+        }
         step("Check the image and text are displayed") {
             EmptyTaskListScreen {
                 assertBackgroundImageIsVisible()

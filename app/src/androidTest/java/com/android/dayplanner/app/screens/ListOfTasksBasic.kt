@@ -11,7 +11,7 @@ import org.hamcrest.Matcher
 
 interface ListOfTasksBasic {
 
-    class ListOfTasks(parent: Matcher<View>) : KRecyclerItem<ListOfTasks>(parent) {
+    class TaskItem(parent: Matcher<View>) : KRecyclerItem<TaskItem>(parent) {
         val titleTextField = KTextView(parent) { withId(R.id.textView_title) }
         val descriptionTextField = KTextView(parent) { withId(R.id.textView_description) }
         val dateTextField = KTextView(parent) { withId(R.id.textView_date) }
@@ -21,7 +21,7 @@ interface ListOfTasksBasic {
 
     fun actionClickOnCheckBox(recyclerView: KRecyclerView, textTitle: String) {
         recyclerView {
-            childWith<ListOfTasks> {
+            childWith<TaskItem> {
                 withDescendant { withText(textTitle) }
             } perform {
                 completeTaskCheckBox.click()
@@ -31,7 +31,7 @@ interface ListOfTasksBasic {
 
     fun actionClickONDeleteButton(recyclerView: KRecyclerView, textTitle: String) {
         recyclerView {
-            childWith<ListOfTasks> {
+            childWith<TaskItem> {
                 withDescendant { withText(textTitle) }
             } perform {
                 deleteTaskButton.click()
@@ -41,7 +41,7 @@ interface ListOfTasksBasic {
 
     fun actionClickOnTheTask(recyclerView: KRecyclerView, textTitle: String) {
         recyclerView {
-            childWith<ListOfTasks> {
+            childWith<TaskItem> {
                 withDescendant { withText(textTitle) }
             } perform {
                 titleTextField.click()
@@ -51,7 +51,7 @@ interface ListOfTasksBasic {
 
     fun assertTheTaskIsNotInTheList(recyclerView: KRecyclerView, textTitle: String) {
         recyclerView {
-            childWith<ListOfTasks> {
+            childWith<TaskItem> {
                 withDescendant { withText(textTitle) }
             } perform {
                 doesNotExist()
@@ -66,7 +66,7 @@ interface ListOfTasksBasic {
         date: String
     ) {
         recyclerView {
-            childWith<ListOfTasks> {
+            childWith<TaskItem> {
                 withDescendant { withText(textTitle) }
             } perform {
                 descriptionTextField.hasText(textDescription)
@@ -77,7 +77,7 @@ interface ListOfTasksBasic {
 
     fun assertTheStatusIsChecked(recyclerView: KRecyclerView, textTitle: String) {
         recyclerView {
-            childWith<ListOfTasks> {
+            childWith<TaskItem> {
                 withDescendant { withText(textTitle) }
             } perform {
                 completeTaskCheckBox.isChecked()
