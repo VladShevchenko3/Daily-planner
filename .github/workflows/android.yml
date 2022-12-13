@@ -5,7 +5,7 @@ on:
 # And in which branch
   push:
     branches:
-      - kaspresso
+      - feature/Kaspresso-tests-advanced
 # Where will they run
 jobs:
   build:
