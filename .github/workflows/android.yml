@@ -9,7 +9,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "feature/Kaspresso-tests-adavanced" ]
+    branches: [ "feature/Kaspresso-tests-advanced" ]
   pull_request:
     branches: [ "develop" ]
 
