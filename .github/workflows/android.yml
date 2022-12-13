@@ -1,0 +1,19 @@
+# Workflow name
+name: Build
+on:
+  # When it will be triggered
+  # And in which branch
+  push:
+    branches:
+      - feature/Kaspresso-tests-advanced
+  # Where will they run
+  workflow_dispatch:
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: Checkout
+        run: echo "ff"
