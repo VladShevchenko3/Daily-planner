@@ -7,6 +7,7 @@ on:
     branches:
       - feature/Kaspresso-tests-advanced
 # Where will they run
+  workflow_dispatch:
 jobs:
   build:
 
