@@ -34,7 +34,7 @@ class CheckBoxTest : BaseTest() {
                 actionClickOnTheTasksHistory()
             }
         }
-        step("Check status of custom task & uncheck them all on the \"History\" screen") {
+        step("Check status of custom task and uncheck them all on the \"History\" screen") {
             TasksHistoryScreen {
                 assertTheStatusOfTaskIsChecked(TASK_TITLE1)
                 assertTheStatusOfTaskIsChecked(TASK_TITLE2)
