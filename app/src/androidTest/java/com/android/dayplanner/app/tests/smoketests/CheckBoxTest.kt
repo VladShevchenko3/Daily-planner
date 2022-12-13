@@ -45,7 +45,7 @@ class CheckBoxTest : BaseTest() {
                 actionPressBack()
             }
         }
-        step("Check status of all task & uncheck them all on the \"Home\" screen") {
+        step("Check status of all task and uncheck them all on the \"Home\" screen") {
             HomeScreen {
                 assertTheStatusOfTaskIsNotChecked(TASK_TITLE1)
                 assertTheStatusOfTaskIsNotChecked(TASK_TITLE2)
