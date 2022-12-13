@@ -12,6 +12,8 @@ object NewTaskScreen : KScreen<NewTaskScreen>() {
     override val viewClass = TaskDetailsFragment::class.java
 
     private val buttonSaveTask = KButton { withId(R.id.button_saveTask) }
+    private val buttonCreateLongTempTask = KButton { withId(R.id.button_createLongTempTask) }
+    private val buttonCreateShortTempTask = KButton { withId(R.id.button_createShortTempTask) }
     private val editTextTitle = KEditText { withId(R.id.editText_title) }
     private val editTextDescription = KEditText { withId(R.id.editText_description) }
     private val editTextDate = KEditText { withId(R.id.editText_taskDate) }
@@ -25,16 +27,32 @@ object NewTaskScreen : KScreen<NewTaskScreen>() {
     }
 
     fun actionEditTextDescription(textDescription: String) {
-        editTextDescription.typeText(textDescription)
+        editTextDescription {
+            clearText()
+            typeText(textDescription)
+        }
         closeSoftKeyboard()
     }
 
+
     fun actionEditTextData(textData: String) {
-        editTextDate.typeText(textData)
+        editTextDate {
+            clearText()
+            typeText(textData)
+        }
         closeSoftKeyboard()
+
     }
 
     fun actionClickOnSaveButton() {
         buttonSaveTask.click()
+    }
+
+    fun actionClickOnCreateLongTempTaskButton() {
+        buttonCreateLongTempTask.click()
+    }
+
+    fun actionClickOnCreateShortTempTaskButton() {
+        buttonCreateShortTempTask.click()
     }
 }

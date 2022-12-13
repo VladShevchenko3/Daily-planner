@@ -16,7 +16,7 @@ object HomeScreen : KScreen<HomeScreen>(), ListOfTasksBasic {
 
     private val fabTaskButton = KButton { withId(R.id.floating_action_button) }
     private val showTaskHistoryView = KView { withText(R.string.label_history) }
-    private val listOfTasks = KRecyclerView({
+    private val listOfTasksView = KRecyclerView({
         withId(R.id.recyclerView)
     }, itemTypeBuilder = {
         itemType(::TaskItem)
@@ -29,15 +29,15 @@ object HomeScreen : KScreen<HomeScreen>(), ListOfTasksBasic {
     }
 
     fun actionDeleteTheTask(textTitle: String) {
-        actionClickONDeleteButton(listOfTasks, textTitle)
+        actionClickONDeleteButton(listOfTasksView, textTitle)
     }
 
     fun actionEditTheTask(textTitle: String) {
-        actionClickOnTheTask(listOfTasks, textTitle)
+        actionClickOnTheTask(listOfTasksView, textTitle)
     }
 
     fun actionClickOnCompleteTheTask(textTitle: String) {
-        actionClickOnCheckBox(listOfTasks, textTitle)
+        actionClickOnCheckBox(listOfTasksView, textTitle)
     }
 
     fun actionOpensTheOverflowMenu() {
@@ -56,17 +56,23 @@ object HomeScreen : KScreen<HomeScreen>(), ListOfTasksBasic {
         showTaskHistoryView.click()
     }
 
-    fun assertTheTaskIsNotDisplayed(textTitle: String) {
-        assertTheTaskIsNotInTheList(listOfTasks, textTitle)
+    fun assertTaskIsNotPresentOnScreen(title: String) {
+        assertTaskIsNotInList(listOfTasksView, title)
+    }
+
+    fun assertRecyclerViewIsEmpty() {
+        assertTheListIsEmpty(listOfTasksView)
     }
 
     fun assertTaskAddedInTheList(textTitle: String, textDescription: String, date: String) {
-        assertTheTaskIsInTheList(listOfTasks, textTitle, textDescription, date)
+        assertTheTaskIsInTheList(listOfTasksView, textTitle, textDescription, date)
     }
 
-    fun assertTheListIsEmpty() {
-        listOfTasks {
-            hasSize(0)
-        }
+    fun assertTheStatusOfTaskIsChecked(textTitle: String) {
+        assertTheStatusIsChecked(listOfTasksView, textTitle)
+    }
+
+    fun assertTheStatusOfTaskIsNotChecked(textTitle: String) {
+        assertTheStatusIsNotChecked(listOfTasksView, textTitle)
     }
 }

@@ -84,4 +84,30 @@ interface ListOfTasksBasic {
             }
         }
     }
+
+    fun assertTheStatusIsNotChecked(recyclerView: KRecyclerView, textTitle: String) {
+        recyclerView {
+            childWith<TaskItem> {
+                withDescendant { withText(textTitle) }
+            } perform {
+                completeTaskCheckBox.isNotChecked()
+            }
+        }
+    }
+
+    fun assertTheListIsEmpty(recyclerView: KRecyclerView) {
+        recyclerView {
+            hasSize(0)
+        }
+    }
+
+    fun assertTaskIsNotInList(recyclerView: KRecyclerView, text: String) {
+        recyclerView {
+            children<TaskItem> {
+                titleTextField.notMatches {
+                    withText(text)
+                }
+            }
+        }
+    }
 }

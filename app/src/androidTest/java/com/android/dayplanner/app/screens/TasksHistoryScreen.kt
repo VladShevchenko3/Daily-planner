@@ -8,7 +8,7 @@ import io.github.kakaocup.kakao.recycler.KRecyclerView
 
 object TasksHistoryScreen : KScreen<TasksHistoryScreen>(), ListOfTasksBasic {
 
-    override val layoutId = R.layout.item_task
+    override val layoutId = R.layout.tasks_fragment
     override val viewClass = TasksFragment::class.java
 
     private val listOfCompetedTasks = KRecyclerView({
@@ -25,7 +25,27 @@ object TasksHistoryScreen : KScreen<TasksHistoryScreen>(), ListOfTasksBasic {
         pressBack()
     }
 
+    fun actionDeleteTheTask(textTitle: String) {
+        actionClickONDeleteButton(listOfCompetedTasks, textTitle)
+    }
+
+    fun actionEditTheTask(textTitle: String) {
+        actionClickOnTheTask(listOfCompetedTasks, textTitle)
+    }
+
     fun assertTheStatusOfTaskIsChecked(textTitle: String) {
         assertTheStatusIsChecked(listOfCompetedTasks, textTitle)
+    }
+
+    fun assertTaskAddedInTheTaskHistory(textTitle: String, textDescription: String, date: String) {
+        assertTheTaskIsInTheList(listOfCompetedTasks, textTitle, textDescription, date)
+    }
+
+    fun assertRecyclerViewIsEmpty() {
+        assertTheListIsEmpty(listOfCompetedTasks)
+    }
+
+    fun assertTaskIsNotPresentOnScreen(title: String) {
+        assertTaskIsNotInList(listOfCompetedTasks, title)
     }
 }
