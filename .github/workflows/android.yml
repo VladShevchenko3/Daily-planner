@@ -5,44 +5,63 @@ on:
     branches: [ "feature/Kaspresso-tests-advanced" ]
 
 jobs:
-  build:
-
+  validate:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-      - name: set up JDK 11
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+  build:
+    strategy:
+      matrix:
+        version: [ 11, 17, 19 ]
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set Up JDK ${{ matrix.version }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.version }}
+          distribution: 'temurin'
+          cache: gradle
+      - name: Dependency Versions - Dependency Updates
+        run: ./gradlew dependencyUpdates
+      - name: Build - Assemble (Debug)
+        run: ./gradlew assembleDebug
+      - name: Dependency Analysis - Build Health
+        run: ./gradlew assembleDebug
+      - name: Static Analysis - Detekt without Type Resolution
+        run: ./gradlew detekt
+      - name: Static Analysis - Detekt with Type Resolution (Main)
+        run: ./gradlew detektMain
+      - name: Static Analysis - Detekt with Type Resolution (Test)
+        run: ./gradlew detektTest
+      - name: Static Analysis - Lint (Debug)
+        run: ./gradlew lintDebug
+      - name: Test - Unit Test - Kotlin Modules
+        run: ./gradlew test -x testDebugUnitTest -x testReleaseUnitTest
+      - name: Test - Unit Test - Android Modules (Debug)
+        run: ./gradlew testDebugUnitTest
+      - name: Test - Unit Test - Code Coverage
+        run: ./gradlew testDebugUnitTest
+      - name: Test - Assemble UI Test - App Module (Debug)
+        run: ./gradlew app:assembleDebugAndroidTest
+  test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set Up JDK 11
         uses: actions/setup-java@v3
         with:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Build with Gradle
-        run: ./gradlew build
-  unit-test:
-    needs: [ build ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-      - name: Run tests
-        run: ./gradlew test
-
-  instrumentation-test:
-    needs: [ unit-test ]
-    runs-on: macos-11
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-
-      - name: Run Kaspresso tests
-        uses: reactivecircus/android-emulator-runner@v2.27.0
+      - name: Test - UI Test - App Module (Debug)
+        uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          target: default
-          arch: x86
-          profile: Nexus 6P
-          script: ./gradlew connectedCheck
+          script: ./gradlew app:connectedDebugAndroidTest
