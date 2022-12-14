@@ -15,7 +15,7 @@ jobs:
   build:
     strategy:
       matrix:
-        version: [ 11, 17, 19 ]
+        version: [ 11]
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
@@ -64,4 +64,4 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: ./gradlew app:connectedDebugAndroidTest
+          script: ./gradlew connectedCheck
