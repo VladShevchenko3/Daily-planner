@@ -45,4 +45,5 @@ jobs:
           target: default
           arch: x86
           profile: Nexus 6
-          script: ./gradlew connectedDebugAndroidTest
+          emulator-build: 7425822
+          script: ./gradlew connectedCheck
