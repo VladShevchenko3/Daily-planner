@@ -46,7 +46,7 @@ android {
 
 dependencies {
     val roomVersion = "2.3.0"
-    val kotlinVersion = "1.7.10"
+    val kotlinVersion = "1.5.30"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("androidx.core:core-ktx:1.6.0")
