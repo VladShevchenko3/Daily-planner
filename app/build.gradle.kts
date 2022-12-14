@@ -35,7 +35,7 @@ android {
     }
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
-            jvmTarget = "1.8"
+            jvmTarget = "11"
         }
     }
 
@@ -46,7 +46,7 @@ android {
 
 dependencies {
     val roomVersion = "2.3.0"
-    val kotlinVersion = "1.5.30"
+    val kotlinVersion = "1.7.10"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("androidx.core:core-ktx:1.6.0")
