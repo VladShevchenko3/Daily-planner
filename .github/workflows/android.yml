@@ -32,10 +32,17 @@ jobs:
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: build
-      - uses: reactivecircus/android-emulator-runner@v2.27.0
+  test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Run espresso tests
+        uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 31
+          api-level: 30
           target: default
           arch: x86
-          profile: Nexus 6P
-          script: ./gradlew connectedAndroidTest
+          profile: Nexus 6
+          script: ./gradlew connectedCheck
