@@ -24,3 +24,8 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           disable-animations: true
           script: ./gradlew connectedCheck --stacktrace
+      - name: Upload test report
+          uses: actions/upload-artifact@v2
+          with:
+            name: instrumentation_test_report
+            path: app/build/reports/androidTests/connected/
