@@ -1,126 +1,78 @@
 package com.android.dayplanner.app.screens
 
-import android.view.View
+import androidx.test.espresso.Espresso.openContextualActionModeOverflowMenu
 import com.android.dayplanner.app.R
-import io.github.kakaocup.kakao.check.KCheckBox
+import com.android.dayplanner.app.screens.ListOfTasksBasic.TaskItem
+import com.android.dayplanner.app.ui.MainActivity
+import com.kaspersky.kaspresso.screens.KScreen
 import io.github.kakaocup.kakao.common.views.KView
-import io.github.kakaocup.kakao.image.KImageView
-import io.github.kakaocup.kakao.recycler.KRecyclerItem
 import io.github.kakaocup.kakao.recycler.KRecyclerView
-import io.github.kakaocup.kakao.screen.Screen
 import io.github.kakaocup.kakao.text.KButton
-import io.github.kakaocup.kakao.text.KTextView
-import io.github.kakaocup.kakao.toolbar.KToolbar
-import org.hamcrest.Matcher
 
+object HomeScreen : KScreen<HomeScreen>(), ListOfTasksBasic {
 
-class HomeScreen : Screen<HomeScreen>() {
+    override val layoutId = R.layout.home_fragment
+    override val viewClass = MainActivity::class.java
 
-    private val floatingActionButton = KButton { withId(R.id.floating_action_button) }
-    private val toolbar = KToolbar { withId(R.id.toolbar) }
-    private val deleteAllView = KView { withText(R.string.label_delete_all) }
-
-    private val yesView = KView { withText(R.string.yes) }
-    private val noView = KView { withText(R.string.no) }
-    private val deleteAllTitle = KView { withText(R.string.delete_all_title) }
-    private val deleteAllDescription = KView { withText(R.string.delete_all_description) }
-
-    private val recyclerView = KRecyclerView({
+    private val fabTaskButton = KButton { withId(R.id.floating_action_button) }
+    private val showTaskHistoryView = KView { withText(R.string.label_history) }
+    private val listOfTasksView = KRecyclerView({
         withId(R.id.recyclerView)
     }, itemTypeBuilder = {
         itemType(::TaskItem)
     })
+    private val deleteAllTaskView = KView { withText(R.string.label_delete_all) }
+    private val yesView = KView { withText(R.string.yes) }
 
-    class TaskItem(parent: Matcher<View>) : KRecyclerItem<TaskItem>(parent) {
-        val title = KTextView(parent) { withId(R.id.textView_title) }
-        val description = KTextView(parent) { withId(R.id.textView_description) }
-        val date = KTextView(parent) { withId(R.id.textView_date) }
-        val deleteTaskButton = KImageView(parent) { withId(R.id.imageView_delete) }
-        val completeTaskButton = KCheckBox(parent) { withId(R.id.checkBox) }
+    fun actionClickOnFabTaskButton() {
+        fabTaskButton.click()
     }
 
-    fun assertRecyclerView(text: String) {
-        recyclerView {
-            firstChild<TaskItem> {
-                title.hasText(text)
-            }
-        }
+    fun actionDeleteTheTask(textTitle: String) {
+        actionClickONDeleteButton(listOfTasksView, textTitle)
     }
 
-    fun performClickOnFAButton() {
-        recyclerView.isVisible()
-        floatingActionButton.isVisible()
-
-        floatingActionButton.click()
+    fun actionEditTheTask(textTitle: String) {
+        actionClickOnTheTask(listOfTasksView, textTitle)
     }
 
-    fun deleteTaskFromList() {
-        recyclerView {
-            firstChild<TaskItem> {
-                title.isVisible()
-                description.isVisible()
-                date.isVisible()
-                completeTaskButton.isVisible()
-
-                deleteTaskButton.click()
-            }
-        }
+    fun actionClickOnCompleteTheTask(textTitle: String) {
+        actionClickOnCheckBox(listOfTasksView, textTitle)
     }
 
-    fun clickOnTask() {
-        recyclerView {
-            firstChild<TaskItem> {
-                title.isVisible()
-                description.isVisible()
-                date.isVisible()
-                completeTaskButton.isVisible()
-                deleteTaskButton.isVisible()
-
-                click()
-            }
-        }
+    fun actionOpensTheOverflowMenu() {
+        openContextualActionModeOverflowMenu()
     }
 
-    fun tasksListIsEmpty(): Boolean {
-        return recyclerView.getSize() == 0
+    fun actionClickOnTheDeleteAllTasks() {
+        deleteAllTaskView.click()
     }
 
-    fun assertToolbar() {
-        toolbar.isDisplayed()
+    fun actionClickOnYesButton() {
+        yesView.click()
     }
 
-    fun showConfirmationDialog() {
-        deleteAllView.click()
-        assertConfirmationDialog()
+    fun actionClickOnTheTasksHistory() {
+        showTaskHistoryView.click()
     }
 
-    fun confirmDeleteAllTask(confirmOption: ConfirmOption){
-        if (confirmOption == ConfirmOption.YES) {
-            yesView.perform {
-                click()
-            }
-        } else {
-            noView.perform {
-                click()
-            }
-        }
+    fun assertTaskIsNotPresentOnScreen(title: String) {
+        assertTaskIsNotInList(listOfTasksView, title)
     }
 
-    fun assertTasksListEmptiness(){
-        recyclerView {
-            hasSize(0)
-        }
+    fun assertRecyclerViewIsEmpty() {
+        assertTheListIsEmpty(listOfTasksView)
     }
 
-    private fun assertConfirmationDialog() {
-        deleteAllTitle.isDisplayed()
-        deleteAllDescription.isDisplayed()
-        yesView.isDisplayed()
-        noView.isDisplayed()
+    fun assertTaskAddedInTheList(textTitle: String, textDescription: String, date: String) {
+        assertTheTaskIsInTheList(listOfTasksView, textTitle, textDescription, date)
     }
 
-    enum class ConfirmOption {
-        YES,
-        NO
+    fun assertTheStatusOfTaskIsChecked(textTitle: String) {
+        assertTheStatusIsChecked(listOfTasksView, textTitle)
+    }
+
+    fun assertTheStatusOfTaskIsNotChecked(textTitle: String) {
+        assertTheStatusIsNotChecked(listOfTasksView, textTitle)
     }
 }
